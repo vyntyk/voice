@@ -33,12 +33,13 @@ class AuthorisationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authorisation)
 
+        val loginBtn = findViewById<Button>(R.id.btnVKlogin)
+        loginBtn.setOnClickListener {
+            authLauncher.launch(arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+        }
     }
 
-    val loginBtn = findViewById<Button>(R.id.btnVKlogin)
-    loginBtn.setOnClickListener {
-        authLauncher.launch(arrayListOf(VKScope.WALL, VKScope.PHOTOS))
-    }
+
 
     companion object {
         fun start(context: Context){

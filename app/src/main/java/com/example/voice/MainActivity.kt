@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.voice.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import com.vk.api.sdk.VK
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,9 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (true){
+        if (!VK.isLoggedIn()){
             AuthorisationActivity.start(this)
-
         }
 
 
