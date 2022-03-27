@@ -8,6 +8,13 @@ import com.example.voice.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import com.vk.api.sdk.VK
 import android.widget.ProgressBar
+import androidx.core.app.ActivityCompat.startActivityForResult
+
+import android.provider.MediaStore
+
+import android.content.Intent
+
+const val ACTIVITY_RECORD_SOUND = 0
 
 class MainActivity : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
@@ -20,11 +27,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CustomRecyclerAdapter(List())
-
-
         if (!VK.isLoggedIn()) {
             AuthorisationActivity.start(this)
         }
@@ -33,14 +35,18 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Запись аудио", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION)
+            startActivityForResult(intent, ACTIVITY_RECORD_SOUND)
         }
-
-        fun List(): MutableList<String> {
-            val data = mutableListOf<String>()
-            (0..30).forEach { i -> data.add("$i element") }
-            return data
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = CustomRecyclerAdapter(ArrayList())
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+    }
+
 }
