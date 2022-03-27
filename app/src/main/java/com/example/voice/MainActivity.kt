@@ -1,18 +1,17 @@
 package com.example.voice
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore.Audio.Media
+import android.util.Log
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voice.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 import com.vk.api.sdk.VK
-import android.widget.ProgressBar
-import androidx.core.app.ActivityCompat.startActivityForResult
-
-import android.provider.MediaStore
-
-import android.content.Intent
+import java.io.File
 
 const val ACTIVITY_RECORD_SOUND = 0
 
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            val intent = Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION)
+            val intent = Intent(Media.RECORD_SOUND_ACTION)
             startActivityForResult(intent, ACTIVITY_RECORD_SOUND)
         }
         binding.recyclerView.apply {
@@ -43,10 +42,19 @@ class MainActivity : AppCompatActivity() {
             adapter = CustomRecyclerAdapter(ArrayList())
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-    }
+        var path: String = "/media/external/audio/media/"
+        File(path).walk(FileWalkDirection.TOP_DOWN)
+            .forEach {
+                Log.d("myLog", it.name)
 
+            }
+
+    }
 }
+
+
+
+
