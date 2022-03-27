@@ -10,6 +10,7 @@ import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAuthenticationResult
 import com.vk.api.sdk.auth.VKScope
 import com.vk.api.sdk.ui.VKConfirmationActivity.Companion.result
+import com.vk.api.sdk.utils.VKUtils
 import java.lang.Exception
 
 class AuthorisationActivity : AppCompatActivity() {
@@ -32,14 +33,13 @@ class AuthorisationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authorisation)
+        val fingerprints: Array<String?>? = VKUtils.getCertificateFingerprint(this, this.packageName)
 
         val loginBtn = findViewById<Button>(R.id.btnVKlogin)
         loginBtn.setOnClickListener {
             authLauncher.launch(arrayListOf(VKScope.WALL, VKScope.PHOTOS))
         }
     }
-
-
 
     companion object {
         fun start(context: Context){

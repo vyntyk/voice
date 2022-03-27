@@ -14,20 +14,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!VK.isLoggedIn()){
+        if (!VK.isLoggedIn()) {
             AuthorisationActivity.start(this)
         }
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Запись аудио", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
     }
-
 }
