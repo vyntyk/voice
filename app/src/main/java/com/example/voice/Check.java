@@ -17,10 +17,8 @@ public class Check {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
             } else {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
@@ -32,7 +30,7 @@ public class Check {
         Environment e = new Environment();
         ArrayList <String> filesList = new ArrayList<String>();
         String sd_card = Environment.getExternalStorageDirectory().toString() + "/Music/Recordings/Standard Recordings";
-        File file = new File( sd_card ) ;
+        File file = new File(sd_card) ;
         File list[] = file.listFiles();
         for( int i=0; i< list.length; i++) {
             filesList.add( list[i].getName() );
