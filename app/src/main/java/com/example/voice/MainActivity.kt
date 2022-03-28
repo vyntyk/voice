@@ -14,6 +14,9 @@ import com.vk.api.sdk.VK
 import java.io.File
 
 const val ACTIVITY_RECORD_SOUND = 0
+const val ACTIVITY_DIALOG = 1
+
+const val DATA_URI = "URL"
 
 class MainActivity : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
@@ -43,14 +46,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        var path: String = "/media/external/audio/media/"
-        File(path).walk(FileWalkDirection.TOP_DOWN)
-            .forEach {
-                Log.d("myLog", it.name)
-
-            }
+        if(requestCode == ACTIVITY_RECORD_SOUND){
+            val url = data?.data
+            startActivityForResult(Intent(this, DialogActivity::class.java).putExtra(DATA_URI, url),
+                ACTIVITY_DIALOG)
+        }else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
 
     }
 }
